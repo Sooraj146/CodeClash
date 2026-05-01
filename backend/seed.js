@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/coding-game
 
 const questions = [
   {
-    language: 'JavaScript',
+    language: 'Web',
     difficulty: 'Easy',
     code: 'console.log(typeof null);',
     options: ['"null"', '"undefined"', '"object"', '"number"'],
@@ -16,12 +16,12 @@ const questions = [
     explanation: 'In JavaScript, typeof null is "object". This is considered a historical bug in the language.',
   },
   {
-    language: 'JavaScript',
-    difficulty: 'Medium',
-    code: 'let a = {};\nlet b = a;\nconsole.log(a === b);',
-    options: ['true', 'false', 'undefined', 'ReferenceError'],
-    correctAnswer: 'true',
-    explanation: 'Both a and b reference the same object in memory, so they are strictly equal.',
+    language: 'Java',
+    difficulty: 'Easy',
+    code: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println(10 + 20 + "Java");\n    }\n}',
+    options: ['30Java', '1020Java', 'Java30', 'Error'],
+    correctAnswer: '30Java',
+    explanation: 'Java evaluates from left to right. 10 + 20 is 30, then it concatenates with "Java".',
   },
   {
     language: 'Python',
@@ -32,12 +32,12 @@ const questions = [
     explanation: 'In Python 3, the type of a list is <class \'list\'>.',
   },
   {
-    language: 'Python',
+    language: 'Web',
     difficulty: 'Medium',
-    code: 'def foo(a, b=[]):\n    b.append(a)\n    return b\n\nprint(foo(1))\nprint(foo(2))',
-    options: ['[1]\n[2]', '[1]\n[1, 2]', '[1]\n[2, 1]', 'Error'],
-    correctAnswer: '[1]\n[1, 2]',
-    explanation: 'Default mutable arguments like lists are evaluated only once when the function is defined. Thus, the same list is modified across multiple calls.',
+    code: '<div style="display: flex; flex-direction: column;">\n  <div>A</div>\n  <div>B</div>\n</div>',
+    options: ['A B', 'A\nB', 'B A', 'None of above'],
+    correctAnswer: 'A\nB',
+    explanation: 'flex-direction: column stacks elements vertically.',
   }
 ];
 

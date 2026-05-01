@@ -61,8 +61,9 @@ export default function Dashboard() {
                 className="w-full bg-dark-900 border border-dark-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:border-primary-500 transition-colors"
               >
                 <option value="Random">Random</option>
-                <option value="JavaScript">JavaScript</option>
                 <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="Web">Web (HTML/CSS/JS)</option>
               </select>
             </div>
 
@@ -168,18 +169,12 @@ export default function Dashboard() {
             </form>
           </div>
           
-          <div className="glass-panel p-8 flex-1 flex flex-col justify-center items-center text-center">
-             <div className="bg-blue-500/20 p-3 rounded-lg text-blue-400 mb-4">
+          <div className="glass-panel p-8 flex-1 flex flex-col justify-center items-center text-center opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+             <div className="bg-primary-500/20 p-3 rounded-lg text-primary-400 mb-4">
                <Database size={32} />
              </div>
-             <h3 className="text-xl font-bold mb-2">Question Bank</h3>
-             <p className="text-gray-400 mb-6">Manage questions, add bulk questions, or modify the database.</p>
-             <button 
-                onClick={() => navigate('/admin')}
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg"
-              >
-                Access Admin Panel
-              </button>
+             <h3 className="text-xl font-bold mb-2">Coming Soon</h3>
+             <p className="text-gray-400">New challenge modes and community levels are currently in development.</p>
           </div>
         </motion.div>
       </div>

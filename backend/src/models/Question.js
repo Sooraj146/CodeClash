@@ -5,6 +5,7 @@ const questionSchema = mongoose.Schema(
     language: {
       type: String,
       required: true,
+      enum: ['Python', 'Java', 'Web'],
     },
     difficulty: {
       type: String,

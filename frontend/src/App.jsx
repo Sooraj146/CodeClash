@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import GameRoom from './pages/GameRoom';
+import Admin from './pages/Admin';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -28,6 +29,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Admin />
                 </ProtectedRoute>
               } 
             />
