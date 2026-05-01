@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { Play, Users, Settings } from 'lucide-react';
+import { Play, Users, Settings, Database } from 'lucide-react';
 
 export default function Dashboard() {
   const [joinCode, setJoinCode] = useState('');
@@ -169,11 +169,17 @@ export default function Dashboard() {
           </div>
           
           <div className="glass-panel p-8 flex-1 flex flex-col justify-center items-center text-center">
-             <h3 className="text-xl font-bold mb-2">Global Leaderboard</h3>
-             <p className="text-gray-400 mb-4">Coming soon! Keep playing to increase your XP.</p>
-             <div className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-300">
-               {user?.xp} XP
+             <div className="bg-blue-500/20 p-3 rounded-lg text-blue-400 mb-4">
+               <Database size={32} />
              </div>
+             <h3 className="text-xl font-bold mb-2">Question Bank</h3>
+             <p className="text-gray-400 mb-6">Manage questions, add bulk questions, or modify the database.</p>
+             <button 
+                onClick={() => navigate('/admin')}
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg"
+              >
+                Access Admin Panel
+              </button>
           </div>
         </motion.div>
       </div>

@@ -11,13 +11,20 @@ const questionSchema = mongoose.Schema(
       required: true,
       enum: ['Easy', 'Medium', 'Hard'],
     },
+    type: {
+      type: String,
+      required: true,
+      enum: ['mcq', 'fill_in_the_blank'],
+      default: 'mcq'
+    },
     code: {
       type: String,
       required: true,
     },
     options: {
       type: [String],
-      required: true,
+      required: false,
+      default: []
     },
     correctAnswer: {
       type: String,

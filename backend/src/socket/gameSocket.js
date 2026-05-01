@@ -1,6 +1,7 @@
 const { Server } = require('socket.io');
 
 const rooms = new Map(); // roomId -> roomData
+const roomTimers = new Map(); // roomId -> setInterval reference
 
 const initSocket = (server) => {
   const io = new Server(server, {
@@ -59,18 +60,10 @@ const initSocket = (server) => {
       player.hasAnsweredCurrent = true;
 
       if (isCorrect) {
-        const anyoneCorrect = room.players.some(p => p.isCorrectForCurrent);
         player.score += (room.settings.correctPoints || 10);
         player.isCorrectForCurrent = true;
         
         io.to(roomId).emit('player_answered', { username: player.user.username, isCorrect: true });
-        
-        if (!anyoneCorrect) {
-          // First person to answer correctly triggers a short timer to next question
-          setTimeout(() => {
-            nextQuestion(io, roomId);
-          }, 2000);
-        }
       } else {
         if (room.settings.wrongPoints > 0) {
           player.score -= room.settings.wrongPoints;
@@ -79,6 +72,14 @@ const initSocket = (server) => {
       }
 
       io.to(roomId).emit('room_update', room);
+
+      // If everyone has answered, move to the next question automatically
+      const allAnswered = room.players.every(p => p.hasAnsweredCurrent);
+      if (allAnswered) {
+        setTimeout(() => {
+          nextQuestion(io, roomId);
+        }, 2000);
+      }
     });
 
     socket.on('disconnect', () => {
@@ -90,6 +91,10 @@ const initSocket = (server) => {
           room.players.splice(playerIndex, 1);
           if (room.players.length === 0) {
             rooms.delete(roomId);
+            if (roomTimers.has(roomId)) {
+              clearInterval(roomTimers.get(roomId));
+              roomTimers.delete(roomId);
+            }
           } else {
             io.to(roomId).emit('room_update', room);
           }
@@ -114,19 +119,22 @@ const initSocket = (server) => {
 
       if (timeLeft <= 0) {
         clearInterval(interval);
+        roomTimers.delete(roomId);
         nextQuestion(io, roomId);
       }
     }, 1000);
     
-    const room = rooms.get(roomId);
-    if(room) room.currentTimer = interval;
+    roomTimers.set(roomId, interval);
   };
 
   const nextQuestion = (io, roomId) => {
     const room = rooms.get(roomId);
     if (!room) return;
 
-    if (room.currentTimer) clearInterval(room.currentTimer);
+    if (roomTimers.has(roomId)) {
+      clearInterval(roomTimers.get(roomId));
+      roomTimers.delete(roomId);
+    }
 
     room.currentQuestionIndex++;
     room.players.forEach(p => {

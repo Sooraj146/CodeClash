@@ -17,7 +17,8 @@ export default function GameRoom() {
   const [timer, setTimer] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [feedback, setFeedback] = useState(null); // { isCorrect: boolean, fastest: boolean }
+  const [textAnswer, setTextAnswer] = useState('');
+  const [feedback, setFeedback] = useState(null); // { isCorrect: boolean }
   const [gameOverStats, setGameOverStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -52,6 +53,7 @@ export default function GameRoom() {
       setRoom(prev => ({ ...prev, status: 'playing', questions }));
       setCurrentQuestion(questions[0]);
       setSelectedAnswer(null);
+      setTextAnswer('');
       setFeedback(null);
     });
 
@@ -62,6 +64,7 @@ export default function GameRoom() {
         return newRoom;
       });
       setSelectedAnswer(null);
+      setTextAnswer('');
       setFeedback(null);
     });
 
@@ -119,10 +122,18 @@ export default function GameRoom() {
   };
 
   const handleAnswerSubmit = (option) => {
-    if (selectedAnswer || feedback) return; // Prevent multiple submissions
+    if (selectedAnswer || feedback) return; 
     
     setSelectedAnswer(option);
     const isCorrect = option === currentQuestion.correctAnswer;
+    socket.emit('submit_answer', { roomId, isCorrect });
+  };
+
+  const handleTextSubmit = () => {
+    if (selectedAnswer || feedback || !textAnswer.trim()) return;
+    
+    setSelectedAnswer(textAnswer);
+    const isCorrect = textAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.trim().toLowerCase();
     socket.emit('submit_answer', { roomId, isCorrect });
   };
 
@@ -273,22 +284,45 @@ export default function GameRoom() {
             </pre>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {currentQuestion?.options.map((option, idx) => (
-              <button
-                key={idx}
+          {currentQuestion?.type === 'fill_in_the_blank' ? (
+            <div className="flex flex-col gap-4">
+              <input
+                type="text"
+                placeholder="Type your answer here..."
+                value={textAnswer}
+                onChange={(e) => setTextAnswer(e.target.value)}
                 disabled={!!selectedAnswer || !!feedback}
-                onClick={() => handleAnswerSubmit(option)}
-                className={`p-4 rounded-xl font-mono text-left transition-all border ${
-                  selectedAnswer === option 
-                    ? 'bg-primary-600 border-primary-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' 
-                    : 'bg-dark-900 border-dark-600 hover:border-primary-500 text-gray-300'
-                } disabled:opacity-80 disabled:cursor-not-allowed`}
+                className="w-full bg-dark-900 border border-dark-600 rounded-xl py-4 px-6 text-white text-lg font-mono focus:outline-none focus:border-primary-500 transition-colors disabled:opacity-50"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleTextSubmit();
+                }}
+              />
+              <button
+                disabled={!!selectedAnswer || !!feedback || !textAnswer.trim()}
+                onClick={handleTextSubmit}
+                className="bg-primary-600 hover:bg-primary-500 text-white font-bold py-4 rounded-xl transition-all disabled:opacity-50 shadow-lg"
               >
-                {option}
+                Submit Answer
               </button>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {currentQuestion?.options.map((option, idx) => (
+                <button
+                  key={idx}
+                  disabled={!!selectedAnswer || !!feedback}
+                  onClick={() => handleAnswerSubmit(option)}
+                  className={`p-4 rounded-xl font-mono text-left transition-all border ${
+                    selectedAnswer === option 
+                      ? 'bg-primary-600 border-primary-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]' 
+                      : 'bg-dark-900 border-dark-600 hover:border-primary-500 text-gray-300'
+                  } disabled:opacity-80 disabled:cursor-not-allowed`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Feedback Overlay */}
           {feedback && (
