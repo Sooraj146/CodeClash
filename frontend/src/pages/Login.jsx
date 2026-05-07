@@ -236,13 +236,7 @@ export default function Login() {
             <div>
               <div className="flex justify-between items-center mb-1">
                 <label className="block text-sm font-medium text-gray-400">Password</label>
-                <button
-                  type="button"
-                  onClick={() => setShowForgot(true)}
-                  className="text-xs text-primary-400 hover:text-primary-300 transition-colors font-medium"
-                >
-                  Forgot password?
-                </button>
+                
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
@@ -255,6 +249,12 @@ export default function Login() {
                   value={password} onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <button
+                  type="button"
+                  onClick={() => setShowForgot(true)}
+                  className="text-xs text-primary-400 hover:text-primary-300 transition-colors font-medium">
+                  Forgot password?
+                </button>
             </div>
 
             <button

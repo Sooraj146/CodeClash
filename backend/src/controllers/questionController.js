@@ -204,4 +204,13 @@ const bulkAddQuestions = async (req, res) => {
   }
 };
 
-module.exports = { getQuestions, getAllQuestions, addQuestion, updateQuestion, deleteQuestion, bulkAddQuestions, removeDuplicates };
+const deleteAllQuestions = async (req, res) => {
+  try {
+    const result = await Question.deleteMany({});
+    res.json({ message: `Deleted all ${result.deletedCount} questions from the bank.` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getQuestions, getAllQuestions, addQuestion, updateQuestion, deleteQuestion, bulkAddQuestions, removeDuplicates, deleteAllQuestions };

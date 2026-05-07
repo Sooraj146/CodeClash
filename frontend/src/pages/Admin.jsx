@@ -2,7 +2,36 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
-import { Plus, Upload, Edit, Trash2, ArrowLeft, Save, X, Download, HelpCircle, AlertCircle, CheckCircle2, Lock, KeyRound } from 'lucide-react';
+import { Plus, Upload, Edit, Trash2, ArrowLeft, Save, X, Download, HelpCircle, AlertCircle, CheckCircle2, Lock, KeyRound, ChevronDown, ChevronRight, Code2, Globe, Coffee } from 'lucide-react';
+
+/* ── Grouping helpers ──────────────────────────────────── */
+const LANG_ORDER = ['Java', 'Python', 'Web'];
+const DIFF_ORDER = ['Easy', 'Medium', 'Hard'];
+
+const LANG_STYLE = {
+  Java:   { bg: 'bg-[#1c1108]', text: 'text-orange-400', border: 'border-orange-500/40', icon: Coffee },
+  Python: { bg: 'bg-[#0a1628]', text: 'text-blue-400',   border: 'border-blue-500/40',   icon: Code2  },
+  Web:    { bg: 'bg-[#081a10]', text: 'text-green-400',  border: 'border-green-500/40',  icon: Globe  },
+};
+
+const DIFF_STYLE = {
+  Easy:   { pill: 'bg-green-500/15 text-green-400 border border-green-500/30' },
+  Medium: { pill: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/30' },
+  Hard:   { pill: 'bg-red-500/15 text-red-400 border border-red-500/30' },
+};
+
+function groupQuestions(questions) {
+  const map = {};
+  for (const lang of LANG_ORDER) {
+    map[lang] = { Easy: [], Medium: [], Hard: [] };
+  }
+  for (const q of questions) {
+    const lang = LANG_ORDER.includes(q.language) ? q.language : 'Python';
+    const diff = DIFF_ORDER.includes(q.difficulty) ? q.difficulty : 'Medium';
+    map[lang][diff].push(q);
+  }
+  return map;
+}
 
 const EMPTY_FORM = {
   language: 'Python',
@@ -28,6 +57,7 @@ export default function Admin() {
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [formData, setFormData] = useState(EMPTY_FORM);
+  const [collapsedLangs, setCollapsedLangs] = useState({});
 
   const fileInputRef = useRef();
   const navigate = useNavigate();
@@ -71,6 +101,17 @@ export default function Admin() {
       fetchQuestions();
     } catch (err) {
       showMessage('error', 'Failed to delete question');
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    if (!window.confirm(`⚠️ DELETE ALL ${questions.length} QUESTIONS?\n\nThis cannot be undone. Are you absolutely sure?`)) return;
+    try {
+      const res = await axios.delete('/api/questions/all');
+      showMessage('success', res.data.message);
+      fetchQuestions();
+    } catch (err) {
+      showMessage('error', 'Failed to delete all questions');
     }
   };
 
@@ -279,6 +320,15 @@ export default function Admin() {
               <button onClick={handleAddNew} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition shadow-lg">
                 <Plus size={18} /> Add Question
               </button>
+              {questions.length > 0 && (
+                <button
+                  onClick={handleDeleteAll}
+                  className="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition shadow-lg border border-red-500/50"
+                  title="Permanently delete every question in the bank"
+                >
+                  <Trash2 size={18} /> Delete All
+                </button>
+              )}
             </div>
           </div>
 
@@ -311,59 +361,100 @@ export default function Admin() {
             </div>
           )}
 
-          {/* Table */}
+          {/* Question Bank — grouped by Language → Difficulty */}
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 text-gray-400 gap-4">
               <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
               <p>Loading question bank...</p>
             </div>
-          ) : (
-            <div className="glass-panel overflow-hidden rounded-xl border border-dark-600">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-dark-950 border-b border-dark-600 text-gray-400 font-semibold">
-                    <tr>
-                      <th className="p-4">Topic</th>
-                      <th className="p-4">Difficulty</th>
-                      <th className="p-4">Type</th>
-                      <th className="p-4 w-1/3">Preview</th>
-                      <th className="p-4">Correct Answer</th>
-                      <th className="p-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-dark-700">
-                    {questions.length === 0 ? (
-                      <tr><td colSpan="6" className="p-10 text-center text-gray-500">No questions found. Add some to get started!</td></tr>
-                    ) : (
-                      questions.map((q) => (
-                        <tr key={q._id} className="hover:bg-dark-800/40 transition group">
-                          <td className="p-4">
-                            <span className="bg-primary-500/10 text-primary-400 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">{q.language}</span>
-                          </td>
-                          <td className="p-4">
-                            <span className={`px-2 py-1 rounded text-xs font-medium ${q.difficulty === 'Easy' ? 'bg-green-500/10 text-green-400' : q.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-400' : 'bg-red-500/10 text-red-400'}`}>{q.difficulty}</span>
-                          </td>
-                          <td className="p-4 text-gray-400">{q.type === 'mcq' ? 'Multiple Choice' : 'Fill-in-blank'}</td>
-                          <td className="p-4">
-                            <div className="font-mono text-xs text-gray-300 truncate max-w-[300px] bg-dark-900/50 p-2 rounded border border-dark-700/50">{q.code}</div>
-                          </td>
-                          <td className="p-4">
-                            <code className="text-green-400 bg-green-400/5 px-2 py-1 rounded border border-green-400/10">{q.correctAnswer}</code>
-                          </td>
-                          <td className="p-4">
-                            <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <button onClick={() => handleEdit(q)} className="p-2 bg-dark-700 hover:bg-blue-600 rounded-lg text-gray-400 hover:text-white transition" title="Edit"><Edit size={16} /></button>
-                              <button onClick={() => handleDelete(q._id)} className="p-2 bg-dark-700 hover:bg-red-600 rounded-lg text-gray-400 hover:text-white transition" title="Delete"><Trash2 size={16} /></button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
+          ) : questions.length === 0 ? (
+            <div className="glass-panel p-16 text-center text-gray-500 rounded-xl border border-dark-600">
+              No questions found. Add some or upload a CSV to get started!
             </div>
-          )}
+          ) : (() => {
+            const grouped = groupQuestions(questions);
+            const total = questions.length;
+            return (
+              <div className="space-y-4">
+                {/* Summary bar */}
+                <div className="flex items-center gap-3 text-sm text-gray-400 mb-2">
+                  <span className="font-semibold text-white text-lg">{total}</span> questions total
+                  {LANG_ORDER.map(lang => {
+                    const count = DIFF_ORDER.reduce((s, d) => s + grouped[lang][d].length, 0);
+                    if (!count) return null;
+                    const ls = LANG_STYLE[lang];
+                    return <span key={lang} className={`px-2 py-0.5 rounded-full text-xs font-bold ${ls.bg} ${ls.text}`}>{lang}: {count}</span>;
+                  })}
+                </div>
+
+                {LANG_ORDER.map(lang => {
+                  const ls = LANG_STYLE[lang];
+                  const LangIcon = ls.icon;
+                  const langTotal = DIFF_ORDER.reduce((s, d) => s + grouped[lang][d].length, 0);
+                  if (!langTotal) return null;
+                  const isCollapsed = collapsedLangs[lang];
+
+                  return (
+                    <div key={lang} className={`rounded-2xl border ${ls.border} overflow-hidden bg-[#0e1420]`}>
+                      {/* Language header — click to collapse */}
+                      <button
+                        onClick={() => setCollapsedLangs(p => ({ ...p, [lang]: !p[lang] }))}
+                        className={`w-full flex items-center justify-between px-6 py-4 ${ls.bg} hover:brightness-110 transition`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <LangIcon size={20} className={ls.text} />
+                          <span className={`text-lg font-bold ${ls.text}`}>{lang}</span>
+                          <span className="text-xs text-gray-400 font-normal">{langTotal} question{langTotal !== 1 ? 's' : ''}</span>
+                        </div>
+                        {isCollapsed ? <ChevronRight size={18} className="text-gray-400" /> : <ChevronDown size={18} className="text-gray-400" />}
+                      </button>
+
+                      {!isCollapsed && (
+                        <div className="bg-[#111827] divide-y divide-[#1f2d45]">
+                          {DIFF_ORDER.map(diff => {
+                            const qs = grouped[lang][diff];
+                            if (!qs.length) return null;
+                            const ds = DIFF_STYLE[diff];
+                            return (
+                              <div key={diff}>
+                                {/* Difficulty sub-header */}
+                                <div className="flex items-center gap-3 px-6 py-2 bg-[#1c2235] border-b border-[#2a3147]">
+                                  <span className={`px-3 py-0.5 rounded-full text-xs font-bold ${ds.pill}`}>{diff}</span>
+                                  <span className="text-xs text-gray-500">{qs.length} question{qs.length !== 1 ? 's' : ''}</span>
+                                </div>
+                                {/* Question cards */}
+                                <div className="divide-y divide-dark-700/30">
+                                  {qs.map((q, idx) => (
+                                    <div key={q._id} className="flex items-start gap-4 px-6 py-4 hover:bg-[#1c2235] transition group">
+                                      <span className="text-xs text-gray-600 font-mono mt-1 w-5 shrink-0">{idx + 1}</span>
+                                      <div className="flex-1 min-w-0">
+                                        <div className="font-mono text-xs text-gray-200 bg-[#0e1118] p-3 rounded-lg border border-[#2a3147] truncate mb-2">{q.code}</div>
+                                        <div className="flex flex-wrap items-center gap-2 text-xs">
+                                          <span className="text-gray-500">{q.type === 'mcq' ? 'MCQ' : 'Fill-in-blank'}</span>
+                                          <span className="text-gray-600">·</span>
+                                          <span className="text-gray-500">Answer:</span>
+                                          <code className="text-green-400 bg-green-400/5 px-2 py-0.5 rounded border border-green-400/10 max-w-[200px] truncate">{q.correctAnswer}</code>
+                                        </div>
+                                      </div>
+                                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                                        <button onClick={() => handleEdit(q)} className="p-2 bg-dark-700 hover:bg-blue-600 rounded-lg text-gray-400 hover:text-white transition" title="Edit"><Edit size={15} /></button>
+                                        <button onClick={() => handleDelete(q._id)} className="p-2 bg-dark-700 hover:bg-red-600 rounded-lg text-gray-400 hover:text-white transition" title="Delete"><Trash2 size={15} /></button>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
 
           {/* Modal */}
           {isModalOpen && (

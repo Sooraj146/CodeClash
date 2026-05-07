@@ -1,5 +1,5 @@
 const express = require('express');
-const { getQuestions, getAllQuestions, addQuestion, updateQuestion, deleteQuestion, bulkAddQuestions } = require('../controllers/questionController');
+const { getQuestions, getAllQuestions, addQuestion, updateQuestion, deleteQuestion, bulkAddQuestions, deleteAllQuestions } = require('../controllers/questionController');
 
 const router = express.Router();
 
@@ -12,6 +12,8 @@ router.route('/all')
 
 router.route('/bulk')
   .post(bulkAddQuestions);
+
+router.delete('/all', deleteAllQuestions);
 
 router.route('/:id')
   .put(updateQuestion)

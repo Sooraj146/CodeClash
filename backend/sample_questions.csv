@@ -59,3 +59,384 @@ Web,Hard,mcq,"function foo() {
   }
 }
 console.log(foo());","{ msg: 'hello' }|undefined|null|SyntaxError","undefined","ASI (Automatic Semicolon Insertion) adds a semicolon after return, so the function returns undefined."
+
+Python,Easy,mcq,"print(type({}))","<class 'dict'>|<class 'set'>|<class 'list'>|None","<class 'dict'>","Curly braces {} without values create a dictionary in Python."
+Python,Easy,mcq,"print(10 // 3)","3.33|3|3.0|4","3","The // operator performs floor division, rounding down to the nearest integer."
+Python,Easy,mcq,"print(2 ** 3)","6|8|9|16","8","The ** operator is used for exponentiation (2 cubed is 8)."
+Python,Easy,mcq,"print('a' in 'apple')","True|False|None|Error","True","The 'in' operator checks for membership in a sequence."
+Python,Easy,mcq,"print(len([1, 2, 3]))","2|3|4|Error","3","The len() function returns the number of items in an object."
+Python,Easy,mcq,"print(bool(0))","True|False|None|0","False","In Python, 0 is considered Falsy."
+Python,Easy,mcq,"print('Python'[0])","P|y|n|Error","P","String indexing starts at 0."
+Python,Easy,mcq,"print(float(5))","5|5.0|'5.0'|Error","5.0","The float() function converts an integer to a floating-point number."
+Python,Easy,mcq,"print(round(3.6))","3|3.0|4|4.0","4","The round() function rounds a number to the nearest integer."
+Python,Easy,mcq,"print(sorted([3, 1, 2]))","[1, 2, 3]|[3, 2, 1]|[1, 3, 2]|Error","[1, 2, 3]","sorted() returns a new list containing all items from the iterable in ascending order."
+Python,Easy,mcq,"print(10 % 3)","3|1|0.33|0","1","The % operator returns the remainder of the division."
+Python,Easy,mcq,"print('hi' * 3)","hihihi|hi 3|hi*3|Error","hihihi","The * operator with a string and an integer performs string repetition."
+Python,Easy,mcq,"print(list('abc'))","['a', 'b', 'c']|['abc']|('a', 'b', 'c')|Error","['a', 'b', 'c']","The list() constructor breaks a string into a list of its characters."
+Python,Easy,mcq,"print(max(5, 10, 2))","5|10|2|Error","10","The max() function returns the largest item."
+Python,Easy,mcq,"print(abs(-7))","7|-7|0|Error","7","The abs() function returns the absolute value of a number."
+Python,Easy,mcq,"print(str(100))","100|'100'|None|Error","'100'","The str() function converts an object into its string representation."
+Python,Easy,mcq,"print('UP'.lower())","up|UP|Up|Error","up","The lower() method returns the string in lowercase."
+Python,Easy,mcq,"print(sum([10, 20]))","10|20|30|Error","30","The sum() function sums the items of an iterable."
+Python,Easy,fill_in_the_blank,"What keyword is used to skip the rest of the current loop iteration?",,continue,"The continue keyword starts the next iteration of the loop."
+Python,Easy,fill_in_the_blank,"What keyword is used to exit a loop prematurely?",,break,"The break keyword terminates the smallest enclosing loop."
+Python,Medium,mcq,"x = [[0]] * 3
+x[0][0] = 1
+print(x)","[[1], [0], [0]]|[[1], [1], [1]]|[[0], [0], [0]]|Error","[[1], [1], [1]]","List multiplication creates multiple references to the same object."
+Python,Medium,mcq,"a = [1, 2]
+b = [1, 2]
+print(a is b, a == b)","True True|False True|True False|False False","False True","'is' checks for identity (memory address), '==' checks for equality (value)."
+Python,Medium,mcq,"print(0.1 + 0.2 == 0.3)","True|False|None|Error","False","Floating-point arithmetic can have precision issues due to binary representation."
+Python,Medium,mcq,"def f(x, y=[]):
+    y.append(x)
+    return y
+print(f(1), f(2))","[1] [2]|[1] [1, 2]|[2] [2]|Error","[1] [1, 2]","Default arguments are evaluated once at function definition time."
+Python,Medium,mcq,"print([x**2 for x in range(3)])","[1, 4, 9]|[0, 1, 4]|[0, 1, 2]|Error","[0, 1, 4]","List comprehension for range(3) (0, 1, 2) results in 0^2, 1^2, 2^2."
+Python,Medium,mcq,"print(any([False, 0, '']))","True|False|None|Error","False","any() returns True if any element of the iterable is true."
+Python,Medium,mcq,"print(all([True, 1, ' ']))","True|False|None|Error","True","all() returns True if all elements of the iterable are true (including non-empty strings)."
+Python,Medium,mcq,"print(ord('a'))","97|65|0|Error","97","ord() returns the Unicode code point of a character."
+Python,Medium,mcq,"print(chr(97))","a|A|97|Error","a","chr() returns the character representing a Unicode code point."
+Python,Medium,mcq,"x = (1, 2)
+y = x
+x += (3,)
+print(y)","(1, 2)|(1, 2, 3)|None|Error","(1, 2)","Tuples are immutable; x += (3,) creates a new tuple and reassigns x, leaving y unchanged."
+Python,Medium,mcq,"print({x: x*2 for x in (1, 2)})","{1: 2, 2: 4}|{2, 4}|[1, 2, 2, 4]|Error","{1: 2, 2: 4}","Dictionary comprehension creates a dictionary from an iterable."
+Python,Medium,mcq,"print(list(filter(None, [0, 1, 2])))","[0, 1, 2]|[1, 2]|[0]|Error","[1, 2]","filter(None, ...) removes elements that are Falsy (like 0)."
+Python,Medium,mcq,"print(list(map(lambda x: x+1, [1, 2])))","[1, 2]|[2, 3]|[1, 2, 1]|Error","[2, 3]","map() applies a function to all items in an input list."
+Python,Medium,mcq,"a = [1, 2, 3]
+b = a[:]
+print(a is b)","True|False|None|Error","False","Slicing [:] creates a shallow copy of the list."
+Python,Medium,mcq,"print(' '.join(['a', 'b']))","ab|a b|'a', 'b'|Error","a b","join() concatenates elements of an iterable using the string as a separator."
+Python,Medium,mcq,"print('a,b,c'.split(',', 1))","['a', 'b', 'c']|['a', 'b,c']|['a,b', 'c']|Error","['a', 'b,c']","split() with maxsplit=1 splits only at the first occurrence."
+Python,Medium,mcq,"print(set([1, 2, 2, 3]))","{1, 2, 2, 3}|{1, 2, 3}|[1, 2, 3]|Error","{1, 2, 3}","Sets only contain unique elements."
+Python,Medium,mcq,"def f(*args):
+    return sum(args)
+print(f(1, 2, 3))","1|6|Error|None","6","*args allows a function to accept any number of positional arguments as a tuple."
+Python,Medium,fill_in_the_blank,"What function is used to pair elements from two iterables into tuples?",,zip,"zip() aggregates elements from each of the iterables."
+Python,Medium,fill_in_the_blank,"What keyword is used to define a small anonymous function?",,lambda,"lambda is used to create small, one-line functions."
+Python,Hard,mcq,"class A:
+    def x(self): print('A', end='')
+class B(A):
+    def x(self): print('B', end=''); super().x()
+class C(A):
+    def x(self): print('C', end='')
+class D(B, C):
+    def x(self): print('D', end=''); super().x()
+D().x()","DBA|DBC|DBCA|DB","DBC","MRO for D is D->B->C->A. C.x() does not call super().x(), so A.x() is not reached."
+Python,Hard,mcq,"a = 256
+b = 256
+c = 257
+d = 257
+print(a is b, c is d)","True True|True False|False True|False False","True False","Python interns small integers in the range [-5, 256]."
+Python,Hard,mcq,"def multipliers():
+    return [lambda x: i * x for i in range(4)]
+print([m(2) for m in multipliers()])","[0, 2, 4, 6]|[6, 6, 6, 6]|[0, 0, 0, 0]|Error","[6, 6, 6, 6]","Closures use late binding; i is looked up when the lambda is called (after the loop)."
+Python,Hard,mcq,"class Parent: x = 1
+class Child1(Parent): pass
+class Child2(Parent): pass
+Child1.x = 2
+Parent.x = 3
+print(Parent.x, Child1.x, Child2.x)","3 2 3|3 2 1|1 2 1|3 3 3","3 2 3","Child1.x creates an attribute on Child1; Child2.x still references Parent.x."
+Python,Hard,mcq,"for i in range(3):
+    if i == 1: break
+else:
+    print('Done')","Done|i| (nothing) |Error"," (nothing) ","The else block in a loop only executes if the loop finishes without a break."
+Python,Hard,mcq,"class Meta(type):
+    def __call__(cls):
+        print('M', end='')
+        return super().__call__()
+class MyClass(metaclass=Meta):
+    def __init__(self): print('I', end='')
+MyClass()","MI|IM|M|I","MI","Calling a class invokes its metaclass's __call__, which then triggers __init__."
+Python,Hard,mcq,"print(isinstance(True, int))","True|False|None|Error","True","In Python, bool is a subclass of int (True is 1, False is 0)."
+Python,Hard,mcq,"def f():
+    x = 10
+    def g():
+        nonlocal x
+        x = 20
+    g()
+    return x
+print(f())","10|20|Error|None","20","The nonlocal keyword allows modifying a variable in the nearest enclosing scope that is not global."
+Python,Hard,mcq,"class A:
+    __slots__ = ['a']
+obj = A()
+obj.a = 1
+try:
+    obj.b = 2
+except AttributeError:
+    print('Error')","1|2|Error|None","Error","__slots__ prevents the creation of __dict__ and limits attributes to those listed."
+Python,Hard,mcq,"print(type(type))","<class 'type'>|<class 'object'>|<type 'type'>|None","<class 'type'>","The type of the type class itself is 'type'."
+Python,Hard,mcq,"import asyncio
+async def f(): return 1
+print(type(f()))","<class 'int'>|<class 'coroutine'>|<class 'function'>|Error","<class 'coroutine'>","Calling an async function returns a coroutine object, not its result."
+Python,Hard,mcq,"class Descriptor:
+    def __get__(self, obj, type): return 'D'
+class A:
+    x = Descriptor()
+    def __init__(self): self.x = 'I'
+print(A().x)","D|I|None|Error","I","Non-data descriptors (only __get__) are overridden by instance attributes."
+Python,Hard,mcq,"print(round(2.5), round(3.5))","2 4|3 4|2 3|3 3","2 4","Python 3 rounds to the nearest even number for .5 cases (Banker's rounding)."
+Python,Hard,mcq,"a = [[]] * 3
+a[0].append(1)
+print(a)","[[1], [], []]|[[1], [1], [1]]|[1, 1, 1]|Error","[[1], [1], [1]]","List multiplication creates references to the same inner list."
+Python,Hard,mcq,"def f(n, memo={}):
+    if n in memo: return memo[n]
+    memo[n] = n
+    return n
+print(f(1), f(1, {}))","1 1|1 {}|Error|None","1 1","The second call provides a new dict for memo, so it doesn't use the default."
+Python,Hard,mcq,"print(issubclass(bool, int))","True|False|None|Error","True","Boolean is a subclass of Integer in Python."
+Python,Hard,mcq,"x = 5
+def f():
+    x += 1
+try:
+    f()
+except UnboundLocalError:
+    print('Error')","6|5|Error|None","Error","Assigning to a variable in a scope makes it local unless declared global."
+Python,Hard,mcq,"print(list(zip([1], [2], [3])))","[(1, 2, 3)]|[1, 2, 3]|[(1,), (2,), (3,)]|Error","[(1, 2, 3)]","zip() takes multiple iterables and yields tuples of their items."
+Python,Hard,fill_in_the_blank,"What dunder method is used to implement the 'with' statement entry?",,__enter__,"The __enter__ method is called when entering a context manager."
+Python,Hard,fill_in_the_blank,"What is the term for a function that returns another function and adds functionality?",,decorator,"A decorator is a design pattern that adds behavior to an existing object."
+
+Java,Easy,mcq,"int x;
+System.out.println(x);","0|null|undefined|Compilation Error","Compilation Error","Local variables in Java must be initialized before use, unlike instance variables."
+Java,Easy,mcq,"String s1 = ""abc"";
+String s2 = ""abc"";
+System.out.println(s1 == s2);","true|false|null|Error","true","String literals are stored in the String Constant Pool, so s1 and s2 point to the same object."
+Java,Easy,mcq,"public static void main(String[] args) {
+    System.out.println(1 / 0);
+}","0|Infinity|ArithmeticException|Compilation Error","ArithmeticException","Integer division by zero throws a runtime ArithmeticException in Java."
+Java,Easy,mcq,"System.out.println(10 + 20 + ""30"");","3030|60|102030|Error","3030","Evaluation is left-to-right: 10+20=30, then 30+""30"" results in string concatenation ""3030""."
+Java,Easy,mcq,"boolean b = true;
+if (b = false) {
+    System.out.println(""if"");
+} else {
+    System.out.println(""else"");
+}","if|else|Error|null","else","The assignment (b = false) returns false, so the else block executes."
+Java,Easy,mcq,"final int x = 10;
+x = 20;","10|20|Compilation Error|Runtime Error","Compilation Error","A final variable cannot be reassigned once it has been given a value."
+Java,Easy,mcq,"System.out.println(""a"".toUpperCase());","a|A|Error|null","A","The toUpperCase() method returns the string converted to uppercase characters."
+Java,Easy,mcq,"int[] arr = new int[5];
+System.out.println(arr[0]);","0|null|5|Error","0","In Java, elements of an int array are automatically initialized to 0."
+Java,Easy,mcq,"System.out.println(Math.abs(-5));","5|-5|0|Error","5","Math.abs() returns the absolute value of the argument."
+Java,Easy,mcq,"String s = ""Hello"";
+System.out.println(s.length());","4|5|6|Error","5","The length() method of String returns the number of characters in the string."
+Java,Easy,mcq,"int x = 5;
+System.out.println(x++);","5|6|0|Error","5","The post-increment operator (x++) returns the current value before incrementing."
+Java,Easy,mcq,"System.out.println(10 > 9);","true|false|1|0","true","The greater than operator returns a boolean true if the left operand is greater."
+Java,Easy,mcq,"byte b = 127;
+b++;
+System.out.println(b);","128|-128|0|1"," -128","Overflowing a byte (max 127) wraps around to the minimum value (-128)."
+Java,Easy,mcq,"System.out.println(""abc"".charAt(1));","a|b|c|Error","b","charAt(1) returns the character at index 1 (zero-based indexing)."
+Java,Easy,mcq,"Object obj = new String(""hi"");
+System.out.println(obj instanceof String);","true|false|null|Error","true","The instanceof operator checks if an object is an instance of a specific class."
+Java,Easy,mcq,"System.out.println(5 == 5.0);","true|false|Error|null","true","Numeric primitives are promoted for comparison; 5 is promoted to 5.0."
+Java,Easy,mcq,"int x = 10;
+double y = x;
+System.out.println(y);","10|10.0|Error|null","10.0","Widening primitive conversion (int to double) happens automatically in Java."
+Java,Easy,mcq,"System.out.println(true && false);","true|false|null|Error","false","The logical AND operator returns true only if both operands are true."
+Java,Easy,fill_in_the_blank,"Which keyword is used to create an instance of a class in Java?",,new,"The new keyword is used to allocate memory for a new object."
+Java,Easy,fill_in_the_blank,"What is the access modifier for a class to be visible everywhere?",,public,"The public modifier makes a class accessible from any other class."
+Java,Medium,mcq,"Integer a = 128;
+Integer b = 128;
+System.out.println(a == b);","true|false|Error|null","false","Integer caching only applies to values between -128 and 127."
+Java,Medium,mcq,"String s1 = new String(""hi"");
+String s2 = ""hi"";
+System.out.println(s1 == s2);","true|false|Error|null","false","s1 is a new object on the heap, while s2 is in the String Constant Pool."
+Java,Medium,mcq,"try {
+    System.out.print(""A"");
+    throw new Exception();
+} catch (Exception e) {
+    System.out.print(""B"");
+} finally {
+    System.out.print(""C"");
+}","ABC|AB|AC|BC","ABC","The finally block always executes after try and catch."
+Java,Medium,mcq,"class A { static int x = 10; }
+class B extends A { }
+B.x = 20;
+System.out.println(A.x);","10|20|Error|null","20","Static variables are shared among all instances and subclasses of a class."
+Java,Medium,mcq,"List<Integer> list = Arrays.asList(1, 2);
+list.add(3);","[1, 2, 3]|UnsupportedOperationException|Error|null","UnsupportedOperationException","Arrays.asList() returns a fixed-size list backed by the array."
+Java,Medium,mcq,"System.out.println(0.1 + 0.2 == 0.3);","true|false|Error|null","false","Floating-point arithmetic precision issues occur in Java just like in other languages."
+Java,Medium,mcq,"public void doSomething(int... nums) {
+    System.out.println(nums.length);
+}
+doSomething(1, 2, 3);","1|2|3|Error","3","Varargs (int... nums) treats the passed arguments as an array."
+Java,Medium,mcq,"String s = ""apple"";
+s.replace('p', 'b');
+System.out.println(s);","apple|abble|abble|Error","apple","Strings are immutable; replace() returns a new string, it doesn't modify the original."
+Java,Medium,mcq,"Map<String, String> map = new HashMap<>();
+map.put(null, ""a"");
+map.put(null, ""b"");
+System.out.println(map.get(null));","a|b|null|Error","b","HashMap allows one null key; subsequent puts with null overwrite the value."
+Java,Medium,mcq,"int x = 10;
+Runnable r = () -> System.out.println(x);
+x = 20;
+r.run();","10|20|Compilation Error|Error","Compilation Error","Variables used in lambdas must be final or effectively final."
+Java,Medium,mcq,"System.out.println(""abc"".substring(1, 1));","a|b| (empty string) |Error"," (empty string) ","substring(start, end) returns characters from start to end-1."
+Java,Medium,mcq,"interface I { int x = 10; }
+System.out.println(I.x);","10|0|Error|null","10","Interface variables are implicitly public, static, and final."
+Java,Medium,mcq,"StringBuilder sb = new StringBuilder(""abc"");
+sb.append(""d"");
+System.out.println(sb);","abc|abcd|abcd|Error","abcd","StringBuilder is mutable, so append() modifies the existing object."
+Java,Medium,mcq,"Thread t = new Thread(() -> System.out.print(""T""));
+t.run();
+System.out.print(""M"");","TM|MT|T|Error","TM","Calling run() directly executes it in the current thread synchronously."
+Java,Medium,mcq,"System.out.println(Math.floor(-3.1));","-3.0|-4.0|-3|-4","-4.0","Math.floor() rounds towards negative infinity."
+Java,Medium,mcq,"Optional<String> opt = Optional.ofNullable(null);
+System.out.println(opt.isPresent());","true|false|null|Error","false","Optional.ofNullable(null) creates an empty Optional."
+Java,Medium,mcq,"Stream.of(1, 2, 3).filter(i -> i > 4).findFirst().orElse(0);","1|0|null|Error","0","The filter removes all elements, so findFirst() is empty, and orElse(0) returns 0."
+Java,Medium,mcq,"class A { A() { System.out.print(""A""); } }
+class B extends A { B() { System.out.print(""B""); } }
+new B();","AB|BA|B|A","AB","Subclass constructor implicitly calls the superclass constructor first."
+Java,Medium,fill_in_the_blank,"What interface must a class implement to be used in try-with-resources?",,AutoCloseable,"Classes used in try-with-resources must implement AutoCloseable or Closeable."
+Java,Medium,fill_in_the_blank,"What is the default capacity of a mới created ArrayList in Java?",,10,"The default initial capacity of an ArrayList is 10."
+Java,Hard,mcq,"class Parent {
+    static { System.out.print(""1""); }
+    { System.out.print(""2""); }
+    Parent() { System.out.print(""3""); }
+}
+class Child extends Parent {
+    static { System.out.print(""4""); }
+    { System.out.print(""5""); }
+    Child() { System.out.print(""6""); }
+}
+new Child();","123456|142356|143265|415623","142356","Initialization: Static Parent -> Static Child -> Instance Parent -> Constructor Parent -> Instance Child -> Constructor Child."
+Java,Hard,mcq,"String s1 = new StringBuilder(""compute"").append(""r"").toString();
+System.out.print(s1.intern() == s1);
+String s2 = new StringBuilder(""ja"").append(""va"").toString();
+System.out.print("" "" + (s2.intern() == s2));","true true|true false|false false|false true","true false","'computer' is newly interned, but 'java' is already in the pool from JVM startup."
+Java,Hard,mcq,"List<Integer> list = new ArrayList<>();
+list.add(1);
+list.parallelStream().forEach(i -> list.add(2));","ConcurrentModificationException|Race Condition|Success|Error","Race Condition","ArrayList is not thread-safe; modifying it from a parallel stream causes data races or exceptions."
+Java,Hard,mcq,"class Node<T> {
+    public void setData(T data) { System.out.print(""N""); }
+}
+class MyNode extends Node<Integer> {
+    public void setData(Integer data) { System.out.print(""M""); }
+}
+Node n = new MyNode();
+n.setData(""hi"");","N|M|ClassCastException|Error","ClassCastException","Type erasure creates a bridge method setData(Object) which casts to Integer."
+Java,Hard,mcq,"System.out.println(Double.MIN_VALUE > 0);","true|false|Error|null","true","Double.MIN_VALUE is the smallest POSITIVE value, not the most negative."
+Java,Hard,mcq,"try {
+    return 1;
+} finally {
+    return 2;
+}","1|2|Error|1 2","2","A return statement in the finally block overrides any return statement in the try block."
+Java,Hard,mcq,"System.out.println(1.0 / 0.0);","ArithmeticException|Infinity|NaN|Error","Infinity","Floating-point division by zero results in Infinity, not an exception."
+Java,Hard,mcq,"System.out.println(0.0 / 0.0);","ArithmeticException|Infinity|NaN|Error","NaN","0.0 divided by 0.0 is 'Not a Number' (NaN)."
+Java,Hard,mcq,"Object o = new Object() {
+    public boolean equals(Object obj) { return true; }
+};
+System.out.println(o.equals(""hi""));","true|false|Error|null","true","An anonymous inner class can override methods like equals()."
+Java,Hard,mcq,"volatile int x = 0;
+// Thread 1: x++
+// Thread 2: x++
+// Final x?","2|1 or 2|Error|0","1 or 2","volatile ensures visibility but NOT atomicity for compound operations like x++."
+Java,Hard,mcq,"Thread.currentThread().interrupt();
+System.out.println(Thread.interrupted());
+System.out.println(Thread.interrupted());","true true|true false|false true|false false","true false","Thread.interrupted() returns the status and then CLEARS the interrupt flag."
+Java,Hard,mcq,"class A { synchronized void f() { } }
+A a1 = new A();
+A a2 = new A();
+// Thread 1: a1.f()
+// Thread 2: a2.f()
+// Block?","Yes|No|Error|Sometimes","No","Synchronization on an instance method locks the object instance (a1 and a2 are different)."
+Java,Hard,mcq,"Set<Short> set = new HashSet<>();
+for (short i = 0; i < 10; i++) {
+    set.add(i);
+    set.remove(i - 1);
+}
+System.out.println(set.size());","1|10|0|Error","10","i-1 is an int, so set.remove(int) fails to remove the Short elements."
+Java,Hard,mcq,"byte[] b1 = {1, 2};
+byte[] b2 = {1, 2};
+System.out.println(b1.equals(b2));","true|false|Error|null","false","Arrays do not override equals(); they use Object.equals() which compares references."
+Java,Hard,mcq,"Stream.of(1, 2).peek(System.out::print).count();","12| (nothing) |Error|1","12","The peek() operation executes for each element during the terminal operation count()."
+Java,Hard,mcq,"class A {
+    static int x = 1;
+    static { x = 2; }
+}
+System.out.println(A.x);","1|2|Error|0","2","Static blocks are executed in order; the second assignment wins."
+Java,Hard,mcq,"Integer x = null;
+int y = x;","0|null|NullPointerException|Error","NullPointerException","Unboxing a null Integer into a primitive int throws NullPointerException."
+Java,Hard,mcq,"System.out.println(Stream.of(1, 2).reduce(0, (a, b) -> a + b));","0|1|2|3","3","The reduce operation sums 0 + 1 + 2 = 3."
+Java,Hard,fill_in_the_blank,"What keyword is used to prevent a class from being inherited?",,final,"The final keyword on a class prevents other classes from extending it."
+Java,Hard,fill_in_the_blank,"What is the name of the memory area where class metadata is stored in Java 8+?",,Metaspace,"Metaspace replaced PermGen for storing class metadata in Java 8."
+
+Web,Easy,mcq,"<h1>Hello</h1>","Largest heading|Smallest heading|Normal text|Bold text","Largest heading","The <h1> tag defines the most important and largest heading in HTML."
+Web,Easy,mcq,"<a href='url'>Link</a>","Hyperlink|Image|Button|Line break","Hyperlink","The <a> (anchor) tag with the href attribute creates a hyperlink."
+Web,Easy,mcq,"<img src='img.jpg' alt='logo'>","alt sets the width|alt sets the height|alt sets the alternate text|alt sets the title","alt sets the alternate text","The alt attribute provides alternative text if the image cannot be displayed."
+Web,Easy,mcq,"<br>","Line break|Horizontal rule|Bold text|Paragraph","Line break","The <br> tag inserts a single line break."
+Web,Easy,mcq,"<p>Text</p>","Paragraph|Page|Part|Point","Paragraph","The <p> tag defines a paragraph of text."
+Web,Easy,mcq,"p { color: red; }","Sets background color|Sets text color|Sets border color|Sets font size","Sets text color","The color property in CSS sets the foreground color (text color) of an element."
+Web,Easy,mcq,"#header { ... }","Selects class 'header'|Selects id 'header'|Selects element 'header'|Selects all elements","Selects id 'header'","The # symbol is the ID selector in CSS."
+Web,Easy,mcq,".btn { ... }","Selects id 'btn'|Selects class 'btn'|Selects element 'btn'|Selects child 'btn'","Selects class 'btn'","The . symbol is the class selector in CSS."
+Web,Easy,mcq,"p { font-size: 16px; }","Sets font weight|Sets font style|Sets font size|Sets font family","Sets font size","The font-size property sets the size of the font."
+Web,Easy,mcq,"margin: 10px;","Sets internal spacing|Sets external spacing|Sets border width|Sets element width","Sets external spacing","The margin property creates space around elements, outside of any defined borders."
+Web,Easy,mcq,"console.log(typeof 'hi')","string|number|object|undefined","string","The typeof operator returns 'string' for string literals."
+Web,Easy,mcq,"console.log(2 + 2)","22|4|'4'|Error","4","The + operator performs addition on numbers."
+Web,Easy,mcq,"console.log(5 == '5')","true|false|null|Error","true","The == operator performs type coercion before comparison."
+Web,Easy,mcq,"let x = 10;","Declares a constant|Declares a block-scoped variable|Declares a global variable|Error","Declares a block-scoped variable","The let keyword declares a block-scoped local variable."
+Web,Easy,mcq,"const y = 5;","Variable can be reassigned|Variable cannot be reassigned|Variable is global|Error","Variable cannot be reassigned","The const keyword creates a read-only reference to a value."
+Web,Easy,mcq,"alert('Hi')","Prints to console|Shows a popup|Changes HTML|Reloads page","Shows a popup","The alert() function displays an alert box with a message."
+Web,Easy,mcq,"// This is a comment","HTML comment|CSS comment|JS single-line comment|JS multi-line comment","JS single-line comment","The // syntax is used for single-line comments in JavaScript."
+Web,Easy,mcq,"padding: 5px;","External space|Space inside border|Border thickness|Element height","Space inside border","The padding property sets the space between the content and the border."
+Web,Easy,fill_in_the_blank,"What HTML tag is used to link a CSS file?",,<link>,"The <link> tag in the <head> section links external stylesheets."
+Web,Easy,fill_in_the_blank,"What attribute is used to provide a unique identifier for an HTML element?",,id,"The id attribute specifies a unique id for an HTML element."
+Web,Medium,mcq,"<script src='file.js' defer></script>","Executes immediately|Executes after parsing|Executes in parallel|Blocking","Executes after parsing","The defer attribute tells the browser to execute the script after the document has been parsed."
+Web,Medium,mcq,"<div data-id='123'></div>","Invalid attribute|Custom data attribute|Reserved attribute|Metadata attribute","Custom data attribute","The data-* attribute is used to store custom data private to the page or application."
+Web,Medium,mcq,"box-sizing: border-box;","Width includes padding/border|Width excludes padding/border|Width is automatic|Error","Width includes padding/border","With border-box, the width and height properties include content, padding, and border."
+Web,Medium,mcq,"display: flex;","Creates a grid container|Creates a flex container|Floats elements|Inlines elements","Creates a flex container","display: flex enables the flexbox layout model for the container."
+Web,Medium,mcq,"justify-content: center;","Aligns items vertically|Aligns items horizontally|Sets item width|Sets gap","Aligns items horizontally","In a flex container, justify-content aligns items along the main axis (usually horizontal)."
+Web,Medium,mcq,"z-index: 10;","Sets horizontal position|Sets vertical position|Sets stack order|Sets transparency","Sets stack order","The z-index property specifies the stack order of an element."
+Web,Medium,mcq,"position: absolute;","Relative to viewport|Relative to nearest positioned ancestor|Relative to itself|Static","Relative to nearest positioned ancestor","Absolute positioning places an element relative to its closest ancestor that has a position other than static."
+Web,Medium,mcq,"console.log([] == ![])","true|false|TypeError|undefined","true","![] is false; [] is coerced to 0, false is coerced to 0, so 0 == 0 is true."
+Web,Medium,mcq,"for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 1);
+}","0 1 2|3 3 3|1 2 3|undefined","3 3 3","var is function-scoped, so the same 'i' is shared and equals 3 when the timeouts run."
+Web,Medium,mcq,"const sum = (a, b) => a + b;","Regular function|Arrow function|Generator function|Method","Arrow function","The => syntax defines an arrow function expression."
+Web,Medium,mcq,"console.log(0.1 + 0.2 === 0.3)","true|false|null|Error","false","Floating-point precision issues mean 0.1 + 0.2 results in 0.30000000000000004."
+Web,Medium,mcq,"[1, 2, 3].map(x => x * 2)","[1, 2, 3]|[2, 4, 6]|[6, 4, 2]|Error","[2, 4, 6]","map() creates a new array with the results of calling a function for every array element."
+Web,Medium,mcq,"localStorage.setItem('k', 'v')","Persistent storage|Session storage|Cookie|Temporary cache","Persistent storage","localStorage stores data with no expiration date."
+Web,Medium,mcq,"Promise.resolve(1).then(x => x + 1)","Returns 1|Returns 2|Returns a Promise|Error","Returns a Promise","then() always returns a new Promise, which resolves to the value returned from the callback."
+Web,Medium,mcq,"document.querySelector('.btn')","Returns all buttons|Returns first element with class btn|Returns id btn|Error","Returns first element with class btn","querySelector returns the first element that matches a specified CSS selector."
+Web,Medium,mcq,"event.preventDefault()","Stops event bubbling|Cancels the default action|Deletes the event|Error","Cancels the default action","preventDefault() prevents the browser's default behavior for an event (e.g., following a link)."
+Web,Medium,mcq,"flex: 1 0 auto;","grow=1, shrink=0, basis=auto|grow=0, shrink=1, basis=auto|Invalid|Error","grow=1, shrink=0, basis=auto","The flex shorthand stands for flex-grow, flex-shrink, and flex-basis in that order."
+Web,Medium,mcq,"opacity: 0.5;","Makes it hidden|Makes it semi-transparent|Changes color|Changes scale","Makes it semi-transparent","The opacity property sets the transparency level of an element."
+Web,Medium,fill_in_the_blank,"What is the default value of the position property?",,static,"The default position for all elements is static."
+Web,Medium,fill_in_the_blank,"What JS method is used to convert a JSON string into an object?",,JSON.parse,"JSON.parse() parses a JSON string and returns a JavaScript object."
+Web,Hard,mcq,"console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+console.log('4');","1 4 3 2|1 2 3 4|1 3 4 2|1 4 2 3","1 4 3 2","Synchronous (1,4) runs first, then Microtasks (Promise 3), then Macrotasks (setTimeout 2)."
+Web,Hard,mcq,"const obj = {
+  a: 1,
+  b: () => console.log(this.a),
+  c: function() { console.log(this.a); }
+};
+obj.b(); obj.c();","1 1|undefined 1|1 undefined|undefined undefined","undefined 1","Arrow functions (b) inherit 'this' from lexical scope (global); regular functions (c) get 'this' from the caller."
+Web,Hard,mcq,"function Foo() {}
+const f = new Foo();","f.__proto__ === Foo|f.__proto__ === Foo.prototype|f.prototype === Foo|Error","f.__proto__ === Foo.prototype","An object's __proto__ points to the prototype of its constructor function."
+Web,Hard,mcq,"console.log(typeof NaN)","number|NaN|undefined|object","number","NaN is a numeric value representing 'Not-a-Number', so its type is 'number'."
+Web,Hard,mcq,"Event bubbling vs capturing","Bottom to top vs Top to bottom|Top to bottom vs Bottom to top|Same|None","Bottom to top vs Top to bottom","Bubbling propagates from the target up; capturing propagates from the root down to the target."
+Web,Hard,mcq,"Shadow DOM event.target","Original element|Shadow host|null|shadowRoot","Shadow host","Events from Shadow DOM are retargeted to the host element to maintain encapsulation."
+Web,Hard,mcq,":"is(section, #main) p { color: blue; }
+article p { color: red; }
+(In <section id='main'><article><p>...","Blue|Red|Black|Purple","Blue",":is() takes the specificity of its most specific argument (#main p is stronger than article p)."
+Web,Hard,mcq,"Which doesn't create a stacking context?","opacity: 0.9|transform: scale(1)|filter: blur(0)|z-index: 10 on static","z-index: 10 on static","z-index only creates a stacking context on positioned elements (relative, absolute, etc.)."
+Web,Hard,mcq,"async function f() {
+  await Promise.resolve();
+  return 1;
+}
+console.log(f())","1|Promise { <pending> }|undefined|Error","Promise { <pending> }","Async functions always return a Promise immediately."
+Web,Hard,mcq,"'use strict';
+x = 10;","Global x is 10|ReferenceError|undefined|Error","ReferenceError","In strict mode, assigning to an undeclared variable throws a ReferenceError."
+Web,Hard,mcq,"console.log(1 + '2' + 3)","6|123|'123'|'15'","'123'","Left-to-right: 1 + '2' = '12', then '12' + 3 = '123'."
+Web,Hard,mcq,"console.log(Math.max())","-Infinity|Infinity|0|undefined","-Infinity","Math.max() with no arguments returns -Infinity."
+Web,Hard,mcq,"[1, 2] + [3, 4]","[1, 2, 3, 4]|'1,23,4'|TypeError|Error","'1,23,4'","Arrays are coerced to strings and concatenated using the + operator."
+Web,Hard,mcq,"function f() { return f; }
+console.log(new f() instanceof f)","true|false|TypeError|Error","false","If a constructor returns an object, 'new' returns that object instead of the new instance."
+Web,Hard,mcq,"0 == '0' vs 0 === '0'","true true|true false|false true|false false","true false","== performs coercion; === does not."
+Web,Hard,mcq,"requestAnimationFrame(cb)","Runs before next repaint|Runs every 10ms|Runs after repaint|Blocking","Runs before next repaint","requestAnimationFrame schedules a callback to run before the next screen repaint."
+Web,Hard,mcq,"Service Worker scope","Entire domain|Directory and subdirectories|Only one file|Global","Directory and subdirectories","A Service Worker's scope is determined by its location."
+Web,Hard,mcq,"What is closure?","Function + Lexical Environment|Private variables|Memory leak|Global scope","Function + Lexical Environment","A closure is the combination of a function and the lexical environment within which it was declared."
+Web,Hard,fill_in_the_blank,"What CSS property is used to create a new stacking context without positioning?",,will-change,"The will-change property (and others like opacity < 1) can create a new stacking context."
+Web,Hard,fill_in_the_blank,"What is the term for 'hoisting' of functions in JS?",,Hoisting,"Hoisting is JavaScript's default behavior of moving declarations to the top."

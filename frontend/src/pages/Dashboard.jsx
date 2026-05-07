@@ -196,7 +196,7 @@ export default function Dashboard() {
                 >
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Timer / question (s)</label>
+                      <label className="block text-sm font-medium text-gray-400 mb-2">Timer</label>
                       <input type="range" min="10" max="60" step="5" value={compTimer}
                         onChange={(e) => setCompTimer(e.target.value)} className="w-full accent-primary-500" />
                       <div className="text-right text-primary-400 font-bold mt-1">{compTimer}s</div>
@@ -254,7 +254,7 @@ export default function Dashboard() {
                   className="space-y-4 overflow-hidden"
                 >
                   <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Timer / question (s)</label>
+                    <label className="block text-sm font-medium text-gray-400 mb-2">Timer</label>
                     <input type="range" min="10" max="180" step="10" value={survTimer}
                       onChange={(e) => setSurvTimer(e.target.value)} className="w-full accent-red-500" />
                     <div className="text-right text-red-400 font-bold mt-1">{survTimer}s</div>
