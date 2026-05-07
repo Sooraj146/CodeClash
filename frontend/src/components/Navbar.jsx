@@ -24,7 +24,6 @@ export default function Navbar() {
             <div className="flex items-center gap-2 text-gray-300 bg-dark-900 px-4 py-2 rounded-full border border-dark-700">
               <User size={18} />
               <span className="font-medium">{user.username}</span>
-              <span className="text-accent ml-2 text-sm font-bold">{user.xp} XP</span>
             </div>
             <button 
               onClick={handleLogout}

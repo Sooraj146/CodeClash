@@ -1,0 +1,61 @@
+language,difficulty,type,code,options,correctAnswer,explanation
+Python,Easy,mcq,"print(type([]))","<class 'list'>|<class 'array'>|<type 'list'>|None","<class 'list'>","The built-in type of a list in Python 3 is <class 'list'>."
+Python,Easy,mcq,"print(2 ** 10)","512|1024|2048|256","1024","2 to the power of 10 equals 1024."
+Python,Easy,mcq,"print('hello'[1])","h|e|hello|Error","e","String indexing in Python is zero-based, so index 1 returns 'e'."
+Python,Easy,fill_in_the_blank,"What keyword is used to define a function in Python?",,def,"The def keyword defines a function."
+Python,Medium,mcq,"a = [0,1,2]
+print(a[0:2])","[0]|[0, 1]|[0, 1, 2]|Error","[0, 1]","Slicing a[0:2] returns elements at indices 0 and 1 (end is exclusive)."
+Python,Medium,mcq,"x = [1, 2, 3]
+y = x
+x.append(4)
+print(y)","[1, 2, 3]|[1, 2, 3, 4]|None|Error","[1, 2, 3, 4]","Lists are mutable; both x and y reference the same list object."
+Python,Medium,mcq,"def f(x=[]):
+    x.append(1)
+    return x
+print(f())
+print(f())","[1]
+[1]|[1]
+[1, 1]|[1, 1]
+[1, 1]|Error","[1]
+[1, 1]","Default mutable arguments are created once and shared across calls."
+Python,Medium,fill_in_the_blank,"What built-in function returns the number of items in a list?",,len,"len() returns the number of items in a sequence."
+Python,Hard,mcq,"class A:
+    x = 1
+class B(A): pass
+class C(A): pass
+B.x = 2
+A.x = 3
+print(A.x, B.x, C.x)","1 2 1|3 2 3|3 2 1|1 2 3","3 2 3","B has its own x=2; C inherits from A whose x was set to 3."
+Python,Hard,mcq,"print(sum([]))","0|None|TypeError|[]","0","sum() on an empty iterable defaults to 0 (the start parameter)."
+Java,Easy,mcq,"System.out.println(5 / 2);","2.5|2|3|Error","2","Integer division in Java truncates the decimal part."
+Java,Easy,mcq,"String s = null;
+System.out.println(s instanceof String);","true|false|NullPointerException|null","false","instanceof always returns false for a null reference."
+Java,Easy,fill_in_the_blank,"Which keyword is used to prevent a class from being inherited in Java?",,final,"The final keyword prevents inheritance."
+Java,Medium,mcq,"int[] arr = {1,2,3};
+System.out.println(arr.length);","2|3|4|Error","3","The length field on an array returns the number of elements."
+Java,Medium,mcq,"System.out.println(1 + 2 + \"3\");","\"123\"|\"33\"|33|Error","33","Left-to-right: 1+2=3, then 3+\"3\"=\"33\"."
+Java,Medium,fill_in_the_blank,"What method must every Java program have as its entry point?",,"public static void main(String[] args)","Java programs start execution from the main method with this exact signature."
+Java,Hard,mcq,"Integer a = 127;
+Integer b = 127;
+System.out.println(a == b);","true|false|Error|null","true","Java caches Integer objects from -128 to 127, so a and b are the same reference."
+Java,Hard,mcq,"try {
+  System.out.println(1);
+  return;
+} finally {
+  System.out.println(2);
+}","1|2|1 2|Error","1 2","The finally block always executes, even after a return statement."
+Web,Easy,mcq,"console.log(typeof null);","null|undefined|object|number","object","typeof null returns 'object' — a known historical bug in JavaScript."
+Web,Easy,mcq,"console.log(2 + '2');","4|22|'22'|Error","22","The + operator with a string coerces the number to a string and concatenates."
+Web,Easy,fill_in_the_blank,"In CSS, which property is used to change the text color of an element?",,color,"The CSS color property sets the foreground color of text."
+Web,Medium,mcq,"setTimeout(() => console.log(1), 0);
+Promise.resolve().then(() => console.log(2));
+console.log(3);","3 2 1|1 2 3|3 1 2|2 3 1","3 2 1","Synchronous code runs first, then microtasks (Promises), then macrotasks (setTimeout)."
+Web,Medium,mcq,"console.log([] == false);","true|false|TypeError|undefined","true","An empty array coerces to 0 which equals false in loose comparison."
+Web,Medium,fill_in_the_blank,"What HTML attribute is used to specify an alternate text for an image?",,alt,"The alt attribute provides alternative text for images."
+Web,Hard,mcq,"function foo() {
+  return
+  {
+    msg: 'hello'
+  }
+}
+console.log(foo());","{ msg: 'hello' }|undefined|null|SyntaxError","undefined","ASI (Automatic Semicolon Insertion) adds a semicolon after return, so the function returns undefined."

@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, authUser, getUserProfile } = require('../controllers/authController');
+const { registerUser, authUser, getUserProfile, resetPassword } = require('../controllers/authController');
 // Assume protect middleware exists, or skip for now to simplify
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
@@ -25,6 +25,7 @@ const router = express.Router();
 
 router.post('/register', registerUser);
 router.post('/login', authUser);
+router.post('/reset-password', resetPassword);   // public — no token needed
 router.get('/profile', protect, getUserProfile);
 
 module.exports = router;

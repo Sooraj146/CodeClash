@@ -1,0 +1,56 @@
+/* ── CodeClash Diagonal Scrolling Watermark ─────────────── */
+.watermark-bg {
+  position: fixed;
+  /* Centre the element then expand it far enough that after -25deg rotation
+     all four viewport corners are still covered.
+     For a 16:9 screen the diagonal is ~115% of the larger dimension.
+     Using 350vmax × 350vmax guarantees coverage at any aspect ratio. */
+  top: 50%;
+  left: 50%;
+  width: 350vmax;
+  height: 350vmax;
+  transform: translate(-50%, -50%) rotate(-25deg);
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+.watermark-row {
+  display: flex;
+  gap: 72px;
+  white-space: nowrap;
+  will-change: transform;
+  flex-shrink: 0;
+}
+
+.watermark-row span {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: #3b82f6;
+  opacity: 0.065;
+  user-select: none;
+  text-transform: uppercase;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.watermark-row-fwd {
+  animation: marquee-fwd 20s linear infinite;
+}
+
+.watermark-row-rev {
+  animation: marquee-rev 26s linear infinite;
+}
+
+@keyframes marquee-fwd {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-rev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}

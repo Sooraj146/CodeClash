@@ -11,10 +11,14 @@ const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    const userExists = await User.findOne({ $or: [{ email }, { username }] });
+    const usernameTaken = await User.findOne({ username });
+    if (usernameTaken) {
+      return res.status(400).json({ message: 'Username already taken. Please choose a different username.' });
+    }
 
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
+    const emailTaken = await User.findOne({ email });
+    if (emailTaken) {
+      return res.status(400).json({ message: 'Email already in use. Please use a different email or log in.' });
     }
 
     const user = await User.create({
@@ -28,7 +32,6 @@ const registerUser = async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        xp: user.xp,
         token: generateToken(user._id),
       });
     } else {
@@ -50,7 +53,6 @@ const authUser = async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        xp: user.xp,
         token: generateToken(user._id),
       });
     } else {
@@ -70,7 +72,6 @@ const getUserProfile = async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        xp: user.xp,
       });
     } else {
       res.status(404).json({ message: 'User not found' });
@@ -80,4 +81,29 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, authUser, getUserProfile };
+const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    if (!email || !newPassword) {
+      return res.status(400).json({ message: 'Email and new password are required.' });
+    }
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters.' });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'No account found with that email address.' });
+    }
+
+    user.password = newPassword; // pre-save hook will hash it
+    await user.save();
+
+    res.json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, authUser, getUserProfile, resetPassword };

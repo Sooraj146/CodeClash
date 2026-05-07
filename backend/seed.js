@@ -1,56 +1,53 @@
 const mongoose = require('mongoose');
+const path = require('path');
+const fs = require('fs');
+const Papa = require('papaparse');
 const dotenv = require('dotenv');
-const Question = require('./src/models/Question');
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/coding-game');
+// Require Question model
+const Question = require('./src/models/Question');
 
-const questions = [
-  {
-    language: 'Web',
-    difficulty: 'Easy',
-    code: 'console.log(typeof null);',
-    options: ['"null"', '"undefined"', '"object"', '"number"'],
-    correctAnswer: '"object"',
-    explanation: 'In JavaScript, typeof null is "object". This is considered a historical bug in the language.',
-  },
-  {
-    language: 'Java',
-    difficulty: 'Easy',
-    code: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println(10 + 20 + "Java");\n    }\n}',
-    options: ['30Java', '1020Java', 'Java30', 'Error'],
-    correctAnswer: '30Java',
-    explanation: 'Java evaluates from left to right. 10 + 20 is 30, then it concatenates with "Java".',
-  },
-  {
-    language: 'Python',
-    difficulty: 'Easy',
-    code: 'print(type([]))',
-    options: ['<class \'list\'>', '<class \'array\'>', '<type \'list\'>', '<type \'array\'>'],
-    correctAnswer: '<class \'list\'>',
-    explanation: 'In Python 3, the type of a list is <class \'list\'>.',
-  },
-  {
-    language: 'Web',
-    difficulty: 'Medium',
-    code: '<div style="display: flex; flex-direction: column;">\n  <div>A</div>\n  <div>B</div>\n</div>',
-    options: ['A B', 'A\nB', 'B A', 'None of above'],
-    correctAnswer: 'A\nB',
-    explanation: 'flex-direction: column stacks elements vertically.',
+const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/coding-game';
+
+mongoose.connect(uri).then(async () => {
+  console.log('Connected to MongoDB.');
+
+  // Wipe existing questions
+  const deleted = await Question.deleteMany({});
+  console.log(`Cleared ${deleted.deletedCount} existing questions.`);
+
+  // Parse the CSV
+  const csvPath = path.join(__dirname, 'sample_questions.csv');
+  const csvContent = fs.readFileSync(csvPath, 'utf-8');
+
+  const { data, errors } = Papa.parse(csvContent, {
+    header: true,
+    skipEmptyLines: true,
+    transformHeader: h => h.trim()
+  });
+
+  if (errors.length > 0) {
+    console.error('CSV parse errors:', errors);
   }
-];
 
-const seedDB = async () => {
-  try {
-    await Question.deleteMany();
-    await Question.insertMany(questions);
-    console.log('Database Seeded Successfully!');
-    process.exit();
-  } catch (error) {
-    console.error('Error seeding DB:', error);
-    process.exit(1);
-  }
-};
+  const questions = data.map(row => ({
+    language: (row.language || 'Python').trim(),
+    difficulty: (row.difficulty || 'Medium').trim(),
+    type: (row.type || 'mcq').trim(),
+    code: (row.code || '').trim(),
+    options: (row.type || '').trim() === 'fill_in_the_blank'
+      ? []
+      : (row.options ? row.options.split('|').map(s => s.trim()).filter(Boolean) : []),
+    correctAnswer: (row.correctAnswer || '').trim(),
+    explanation: (row.explanation || '').trim()
+  }));
 
-seedDB();
+  const inserted = await Question.insertMany(questions);
+  console.log(`✅ Successfully seeded ${inserted.length} questions from sample_questions.csv!`);
+  process.exit(0);
+}).catch(err => {
+  console.error('Connection error:', err.message);
+  process.exit(1);
+});
